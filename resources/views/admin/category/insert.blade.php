@@ -17,7 +17,6 @@
             </ol>
         </section>
 
-        <!-- Main content -->
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -26,7 +25,7 @@
                             <h3 class="box-title"><span style="color: green" class="glyphicon glyphicon-plus"></span>
                                 Thêm tin tức</h3>
                         </div>
-                        <form class="form-horizontal" method="post" id="formProduct" action="administrator/article/insert"
+                        <form class="form-horizontal" method="post" id="formProduct" action="administrator/category/insert"
                               enctype="multipart/form-data">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                             <div class="box-body">
@@ -34,15 +33,32 @@
                                     <label class="col-sm-2 control-label">Danh mục</label>
                                     <div class="col-sm-4">
                                         <select name="selCategory" id="selCategory" class="form-control">
-
+                                            <option value="0">Chọn danh mục</option>
+                                            @foreach($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="txtCode">Tiêu đề</label>
+                                <div class="form-group {{ empty($errors->messages()['txtName']) ? '' : 'has-error' }}">
+                                    <label class="col-sm-2 control-label" for="txtName">Tên loại tin</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" name="txtTitle" id="txtTitle" placeholder="Nhập tên tiêu đề">
+                                        <input type="text" class="form-control" name="txtName" placeholder="Nhập tên loại tin">
+                                        <span class="help-block">{{ empty($errors->messages()['txtName']) ? '' : showError($errors->messages()['txtName']) }}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group {{ empty($errors->messages()['txtDescription']) ? '' : 'has-error' }}">
+                                    <label class="col-sm-2 control-label" for="txtDescription">Mô tả</label>
+                                    <div class="col-sm-4">
+                                        <textarea type="text" class="form-control" name="txtDescription" placeholder="Nhập mô tả" rows="5"></textarea>
+                                        <span class="help-block">{{ empty($errors->messages()['txtDescription']) ? '' : showError($errors->messages()['txtDescription']) }}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="txtCode">Hiển thị</label>
+                                    <div class="col-sm-4">
+                                        <input type="checkbox"name="txtStatus" >
                                     </div>
                                 </div>
 
@@ -70,12 +86,4 @@
         <!-- /.content -->
     </div>
 @endsection
-@section('javascript')
 
-    <!-- Bootstrap WYSIHTML5 -->
-    <script src="admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-    <!-- Select2 -->
-    <script src="admin-lte/plugins/select2/select2.full.min.js"></script>
-    <!-- SlimScroll 1.3.0 -->
-    <script src="admin-lte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-@endsection
