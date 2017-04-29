@@ -38,30 +38,37 @@
                                 <tr>
                                     <th>Danh mục</th>
                                     <th>Tiêu đề</th>
+                                    <th>Tag</th>
+                                    <th>Hiển thị</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                        <tr>
-                                            <td>asdsa</td>
-                                            <td>asdsad</td>
-                                            <td class="centered text-center">
-                                                <a class="btn btn-primary btn-xs"
-                                                   href="#">
-                                                    <span class="glyphicon glyphicon-pencil"></span>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs"
-                                                   href="#">
-                                                    <span class="glyphicon glyphicon-trash"></span>
-                                                </a>
-                                            </td>
-                                        </tr>
-
+                                @foreach($articles as $article)
+                                <tr>
+                                    <td>{{ $article->category->name }}</td>
+                                    <td>{{ $article->title }}</td>
+                                    <td>{{ $article->tag }}</td>
+                                    <td>{{ $article->status == 1 ? 'Có' : 'Không'}}</td>
+                                    <td class="centered text-center">
+                                        <a class="btn btn-primary btn-xs"
+                                           href="administrator/article/update/{{ $article->id }}">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                        <a class="btn btn-danger btn-xs"
+                                           href="administrator/article/delete/{{ $article->id }}">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                @endforeach
                                 </tbody>
                                 <tfoot>
                                 <tr>
                                     <th>Danh mục</th>
                                     <th>Tiêu đề</th>
+                                    <th>Tag</th>
+                                    <th>Tag</th>
                                     <th></th>
                                 </tr>
                                 </tfoot>
@@ -78,14 +85,11 @@
         </section>
         <!-- /.content -->
     </div>
-
 @endsection
 @section('javascript')
     <!-- DataTables -->
     <script src="admin-lte/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="admin-lte/plugins/datatables/dataTables.bootstrap.min.js"></script>
-    <!-- SlimScroll -->
-    <script src="admin-lte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script>
         $(function () {
             var table = $("#example1").DataTable();

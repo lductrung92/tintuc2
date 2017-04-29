@@ -36,32 +36,36 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Danh mục</th>
-                                    <th>Tiêu đề</th>
+                                    <th>Tên</th>
+                                    <th>Email</th>
+                                    <th>Username</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($users as $user)
                                 <tr>
-                                    <td>asdsa</td>
-                                    <td>asdsad</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->username }}</td>
                                     <td class="centered text-center">
                                         <a class="btn btn-primary btn-xs"
-                                           href="#">
+                                           href="administrator/user/update/{{ $user->id }}">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         <a class="btn btn-danger btn-xs"
-                                           href="#">
+                                           href="administrator/user/delete/{{ $user->id }}">
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </a>
                                     </td>
                                 </tr>
-
+                                @endforeach
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>Danh mục</th>
-                                    <th>Tiêu đề</th>
+                                    <th>Tên</th>
+                                    <th>Mô tả</th>
+                                    <th>Hiển thị</th>
                                     <th></th>
                                 </tr>
                                 </tfoot>
@@ -78,14 +82,11 @@
         </section>
         <!-- /.content -->
     </div>
-
 @endsection
 @section('javascript')
     <!-- DataTables -->
     <script src="admin-lte/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="admin-lte/plugins/datatables/dataTables.bootstrap.min.js"></script>
-    <!-- SlimScroll -->
-    <script src="admin-lte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script>
         $(function () {
             var table = $("#example1").DataTable();

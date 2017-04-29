@@ -125,4 +125,23 @@ function random_color() {
     return '#' . random_color_part() . random_color_part() . random_color_part();
 }
 
+function moveFile($request, $fileName, $unlink = false, $fileDel)
+{
+    $file = $request->file($fileName);
+    $format = $file->getClientOriginalExtension();
+    if($format != 'jpg' && $format != 'png' && $format != 'jpeg'){
+        return redirect('admin/news/list')->with(['flash_level' => 'danger', 'flash_message' => 'File upload lên phải có định dạng sau jpg,png,jpeg']);
+    }
+    $name = $file->getClientOriginalName();
+    $image = str_random(4) . "_" . $name;
+    while(file_exists("upload/articles/" . $image))
+    {
+        $image = str_random(4) . "_" . $name;
+    }
+    if($unlink)
+    	unlink("upload/articles/" . $fileDel);
+    Image::make($file->getRealPath())->resize(480, 292)->save(public_path('upload/articles/' . $image));
+    return $image;
+}
+
 ?>
